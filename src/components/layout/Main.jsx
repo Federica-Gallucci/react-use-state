@@ -1,4 +1,5 @@
 // import languages from `../../data/languages`;
+import { useState } from "react";
 
 const languages = [
   {
@@ -40,20 +41,30 @@ const languages = [
 ];
 
 export default function Main() {
+  const [buttonIdSelected, setButtonIdSelected] = useState(0);
+  const selectedlanguages = languages.find(
+    (language) => language.id === buttonIdSelected
+  );
   return (
     <main>
       <div className="container">
         <div className="d-flex gap-2 my-2">
           {languages.map((language) => (
-            <button className="btn btn-primary" key={language.id}>
+            <button
+              className="btn btn-primary"
+              key={language.id}
+              onClick={() => {
+                setButtonIdSelected(language.id);
+              }}
+            >
               {language.title}
             </button>
           ))}
         </div>
 
         <div className="card px-2 my-4">
-          <div className="card-header">{languages[0].title}</div>
-          <div className="card-body ">{languages[0].description}</div>
+          <div className="card-header">{selectedlanguages.title}</div>
+          <div className="card-body ">{selectedlanguages.description}</div>
         </div>
       </div>
     </main>
